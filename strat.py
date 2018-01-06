@@ -4,14 +4,16 @@ import numpy as np
 import copy
 
 
-def run(matrix, start_point, step, steps, pre_move, clear_dots, end):
+def run(matrix, start_point, step, steps, pre_move, clear_dots, move_list, end):
     
     temp_matrix = copy.deepcopy(matrix)
+    move_translate = {0: '↑', 1: '↓', 2: '←', 3: '→'}
        
     if step == 0:
         choice_dict = surrounding_detection(temp_matrix, start_point[0], start_point[1], None, last_move=False)
         clear_dots = [None for i in range(steps + 1)]  # initializing the list for coords of removed points
-        # exit()
+        move_list = [None for i in range(steps + 1)]
+
     if step == steps:
         choice_dict = surrounding_detection(temp_matrix, start_point[0], start_point[1], pre_move, last_move=True)
     else:
@@ -24,7 +26,6 @@ def run(matrix, start_point, step, steps, pre_move, clear_dots, end):
             possible_moves.append(i)
     
     if len(possible_moves) == 0:
-        # print('Fail')
         return 'Break'
     
     clear_dots[step] = start_point  # The first index in the list would be the coord of starting point
@@ -33,6 +34,7 @@ def run(matrix, start_point, step, steps, pre_move, clear_dots, end):
     for move in possible_moves:
         for i in range(step, steps + 1):
             clear_dots[i] = None
+            move_list[i] = None
     
         for dot in clear_dots:
             if dot is not None:
@@ -49,28 +51,24 @@ def run(matrix, start_point, step, steps, pre_move, clear_dots, end):
         
         if step > steps:
             return 'end'
-        # print('!!!!!---!!!!!:', step, steps)
         
         clear_dots[step] = new_dot
+        move_list[step] = move
     
-        # print(new_dot, move)
         pre_move = move
-        _ = run(temp_matrix, new_dot, step, steps, pre_move, clear_dots, end=end)
+        _ = run(temp_matrix, new_dot, step, steps, pre_move, clear_dots, move_list, end=end)
         if _ == 'end':
-            # print(step)
             if step == 1:
-                return clear_dots
+                return clear_dots, [move_translate[i] for i in move_list[1:]]
             else:
                 return 'end'
         
         
 def strat(matrix):
     steps = int((np.sum(matrix) - 4) / 2)
-    print(steps)
+    # print(steps)
     # exit()
     start_point = start_detection(matrix)
-    print(start_point)
+    # print(start_point)
     step = 0
-    return run(matrix, start_point, step, steps, None, [0], end=False)
-        
-
+    return run(matrix, start_point, step, steps, None, [0], [0], end=False)

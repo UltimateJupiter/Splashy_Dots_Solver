@@ -52,10 +52,10 @@ def surrounding_detection(matrix, x_start, y_start, pre_move, last_move):
     
     
 def start_detection(matrix):
-    print(matrix)
+    # print(matrix)
     for i in range(matrix.shape[0]):
         if 1 in matrix[i]:
             for j in range(matrix.shape[1]):
                 if matrix[i][j] == 1:
-                    print(i, j)
+                    # print(i, j)
                     return i, j

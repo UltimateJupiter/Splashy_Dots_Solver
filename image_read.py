@@ -13,14 +13,9 @@ def image_to_matrix(file):
     g_range = [min(background_info[1]) - 0.02, max(background_info[1]) + 0.02]
     b_range = [min(background_info[2]) - 0.02, max(background_info[2]) + 0.02]
     
-    # r_range, g_range, b_range = 0
-    # print(background_info.shape)
-    # print(task_image)
     temp_array = task_image
     new_array = np.zeros(temp_array.shape[:2])
-    # print(new_array.shape)
-    
-    print('pre processing...')
+    print('\n\nImage processing...')
     
     for x in range(len(temp_array)):
         for y in range(len(temp_array[0])):
@@ -53,9 +48,7 @@ def image_to_matrix(file):
                 temp_mark[-1].append(i)
                 temp_index[-1].append(array[i])
         
-        # print(temp_index, temp_mark)
         boundary_estimate = (np.mean(temp_mark[0]), np.mean(temp_mark[-1]))
-        # print(boundary_estimate)
         seq = list(range(len(temp_index)))
         seq.reverse()
         
@@ -65,7 +58,6 @@ def image_to_matrix(file):
         valid_mark = [np.mean(i) for i in temp_mark]
         length = int(np.mean([len(i) for i in temp_mark]))
         
-        # exit()
         distances, crosses = [], []
         
         for i in range(1, len(valid_mark)):
@@ -76,9 +68,8 @@ def image_to_matrix(file):
             distance = min(distances)
     
         if length * 1.4 < distance < 2.2 * length:
-            print('Normal')
+            pass
         else:
-            print('Corrected')
             distance = length * 1.66
         for i in np.arange(-8.5, 8.5, 1):
             index = valid_mark[int(len(valid_mark) / 2)] + i * distance
@@ -114,8 +105,7 @@ def image_to_matrix(file):
     for y in range(len(y_slice) - 1):
         for x in range(len(x_slice) - 1):
             core = new_array[y_slice[y]:y_slice[y + 1], x_slice[x]:x_slice[x + 1]]
-            # plt.imshow(core)
-            # plt.show()
+
             core_sum = np.sum(core)
             if core_sum > 900:
                 matrix[y][x] = 1
