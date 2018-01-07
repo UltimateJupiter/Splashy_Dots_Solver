@@ -1,5 +1,5 @@
 # Splashy_Dots_Solver
-## Developed by Xingyu Zhu @ the HS affiliated to Renmin Univ. of China
+### Developed by Xingyu Zhu @ the HS affiliated to Renmin Univ. of China
 
 This program should be running on Python 3 with Numpy and Matplotlib installed.
 
