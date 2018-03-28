@@ -1,7 +1,7 @@
 # Splashy_Dots_Solver
 ### Developed by Xingyu Zhu @ the HS affiliated to Renmin Univ. of China
 
-This program should be running on Python 3 with Numpy and Matplotlib installed.
+This program should be running on Python 3 or Python 2.7 with Numpy, Matplotlib, tkinter and scikit-image installed. If you have a Linux computer launch config.py
 
 Screenshots should be added into the 'tasks' folder and mentioned in main.py
 
