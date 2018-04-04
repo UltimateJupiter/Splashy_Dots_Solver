@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from rules import surrounding_detection
 from rules import start_detection
 import numpy as np
